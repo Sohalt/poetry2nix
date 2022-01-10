@@ -1031,6 +1031,14 @@ self: super:
     }
   );
 
+  opencv-python-headless = super.opencv-python-headless.overridePythonAttrs (
+    old: {
+      nativeBuildInputs = [ pkgs.cmake ] ++ old.nativeBuildInputs;
+      buildInputs = [ self.scikit-build ] ++ (old.buildInputs or [ ]);
+      dontUseCmakeConfigure = true;
+    }
+  );
+
   opencv-contrib-python = super.opencv-contrib-python.overridePythonAttrs (
     old: {
       nativeBuildInputs = [ pkgs.cmake ] ++ old.nativeBuildInputs;
